@@ -125,14 +125,60 @@
                 </section>
 
                 <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">Success Criteria (3 Months Post-Launch)</h2>
-                     <p class="text-slate-600 mb-6">The project's success will be measured against these key performance indicators. The chart below visualizes the target improvements we aim to achieve. Hover over the bars to see the specific target values.</p>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <div class="chart-container" style="position: relative; height:40vh; max-height: 350px; width:100%; max-width: 800px; margin: auto;">
-                            <canvas id="successChart"></canvas>
-                        </div>
-                    </div>
-                </section>
+  <h2 class="text-2xl font-semibold text-slate-900 mb-4">Success Metrics (3 Months Post-Launch)</h2>
+  <p class="text-slate-600 mb-6">Track the project's impact on key goals. Each card shows the target improvement and current progress.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- KPI Card 1 -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+      <h3 class="font-semibold text-slate-900 mb-2">Reduction in Booking Calls</h3>
+      <p class="text-sm text-slate-500 mb-4">Goal: 20% fewer booking calls</p>
+      <div class="w-full bg-slate-200 rounded-full h-4 mb-2">
+        <div class="bg-indigo-600 h-4 rounded-full" style="width: 0%;" id="kpi1-bar"></div>
+      </div>
+      <p class="text-sm text-slate-600" id="kpi1-text">Current: 0%</p>
+    </div>
+
+    <!-- KPI Card 2 -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+      <h3 class="font-semibold text-slate-900 mb-2">Reduction in No-Shows</h3>
+      <p class="text-sm text-slate-500 mb-4">Goal: 15% fewer no-shows</p>
+      <div class="w-full bg-slate-200 rounded-full h-4 mb-2">
+        <div class="bg-indigo-600 h-4 rounded-full" style="width: 0%;" id="kpi2-bar"></div>
+      </div>
+      <p class="text-sm text-slate-600" id="kpi2-text">Current: 0%</p>
+    </div>
+
+    <!-- KPI Card 3 -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+      <h3 class="font-semibold text-slate-900 mb-2">Positive Customer Feedback</h3>
+      <p class="text-sm text-slate-500 mb-4">Goal: 80% positive feedback</p>
+      <div class="w-full bg-slate-200 rounded-full h-4 mb-2">
+        <div class="bg-indigo-600 h-4 rounded-full" style="width: 0%;" id="kpi3-bar"></div>
+      </div>
+      <p class="text-sm text-slate-600" id="kpi3-text">Current: 0%</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const kpis = [
+      { id: 'kpi1', target: 20, current: 12 }, // Example current progress
+      { id: 'kpi2', target: 15, current: 5 },
+      { id: 'kpi3', target: 80, current: 45 },
+    ];
+
+    kpis.forEach(kpi => {
+      const bar = document.getElementById(`${kpi.id}-bar`);
+      const text = document.getElementById(`${kpi.id}-text`);
+      const percentage = Math.min((kpi.current / kpi.target) * 100, 100);
+      bar.style.width = `${percentage}%`;
+      text.innerText = `Current: ${kpi.current}% of target`;
+    });
+  });
+</script>
+
             </div>
 
             <div id="scope" class="tab-content hidden">
