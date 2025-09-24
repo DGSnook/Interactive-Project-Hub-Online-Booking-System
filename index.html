@@ -1,198 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Analyst Project Hub</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Hub: Online Booking System</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { font-family: 'Inter', sans-serif; }
+@import url('https://rsms.me/inter/inter.css');
+.tab-active { border-bottom: 2px solid #4f46e5; color: #4f46e5; font-weight: 600; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.accordion-open .accordion-content { max-height: 1000px; }
+.accordion-open .accordion-arrow { transform: rotate(90deg); }
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    border: 3px solid #eef2ff;
+}
+.timeline-line { position: absolute; left: -21px; top: 0; bottom: 0; width: 2px; background-color: #e0e7ff; }
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-  <div class="container mx-auto p-6">
-    <!-- Header -->
-    <header class="mb-8">
-      <h1 class="text-3xl font-bold text-slate-900">Business Analyst Project Hub</h1>
-      <p class="text-slate-600">Created by Darren Snook — <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">DGS Consulting</a></p>
-      <p class="mt-2 text-slate-700">This demonstration hub shows how Business Analysis practices can turn complex project details into clear, interactive tools.</p>
-    </header>
 
-    <!-- Navigation Tabs -->
-    <nav role="tablist" class="flex space-x-4 mb-6">
-      <button class="tab-button px-4 py-2 bg-indigo-600 text-white rounded-lg" data-tab="dashboard">Dashboard</button>
-      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="scope">Scope</button>
-      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="team">Team</button>
-      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="timeline">Timeline</button>
-      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="about">About Me</button>
-    </nav>
+<div class="container mx-auto p-4 md:p-8">
 
-    <!-- Content Areas -->
-    <main>
-      <!-- Dashboard -->
-      <div id="dashboard" class="tab-content">
-        <section>
-          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Dashboard</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-              <h3 class="text-xl font-semibold mb-4">Project Status</h3>
-              <canvas id="statusChart"></canvas>
+<header class="mb-8">
+    <h1 class="text-4xl font-bold text-slate-900">Project Hub: Online Booking System</h1>
+    <p class="text-lg text-slate-600 mt-2">A consolidated dashboard for all project stakeholders, requirements, and timelines.</p>
+    <p class="text-sm text-slate-400 mt-2">Created by Darren Snook</p>
+</header>
+
+<nav class="border-b border-slate-200 mb-8">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-slate-500">
+        <li class="mr-2"><button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300 tab-active" data-tab="overview">📊 Dashboard</button></li>
+        <li class="mr-2"><button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="scope">📋 Scope & Requirements</button></li>
+        <li class="mr-2"><button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="team">👥 Team & Roles</button></li>
+        <li><button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="timeline">⏳ Project Timeline</button></li>
+        <li><button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="about">👤 About Me</button></li>
+    </ul>
+</nav>
+
+<main>
+    <div id="overview" class="tab-content active">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Overview</h2>
+        <p class="text-slate-600 mb-6">High-level summary of project objectives. Goal: seamless online booking and admin efficiency.</p>
+    </div>
+
+    <div id="scope" class="tab-content">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">Scope & Requirements</h2>
+        <p class="text-slate-600 mb-6">Define in-scope and out-of-scope features for clarity.</p>
+    </div>
+
+    <div id="team" class="tab-content">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">RACI Matrix</h2>
+        <p class="text-slate-600 mb-6">Clarifies roles for project success.</p>
+    </div>
+
+    <div id="timeline" class="tab-content">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Roadmap</h2>
+        <p class="text-slate-600 mb-6">12-week visual timeline of key phases.</p>
+    </div>
+
+    <div id="about" class="tab-content">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">About Me</h2>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+            <p class="text-lg text-slate-600 mb-4">I’m a Business Analyst turning complex processes into actionable solutions, aligning stakeholders and technical teams for scalable outcomes.</p>
+
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Links</h3>
+            <div class="flex flex-col space-y-2 mb-4">
+                <a href="https://www.linkedin.com/in/dg-snook/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">LinkedIn</a>
+                <a href="https://github.com/DGSConsulting" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">GitHub</a>
+                <a href="http://dgsconsulting.solutions/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">Website</a>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-              <h3 class="text-xl font-semibold mb-4">Success Metrics</h3>
-              <canvas id="successChart"></canvas>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+    </div>
+</main>
 
-      <!-- Scope -->
-      <div id="scope" class="tab-content hidden">
-        <section>
-          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Scope</h2>
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-            <p class="mb-4 text-slate-600">
-              This project was designed to demonstrate how information can be organized into a straightforward, interactive hub. It brings together scope, team, and timeline details in one place.
-            </p>
-            <h3 class="text-xl font-semibold mb-2">Objectives</h3>
-            <ul class="list-disc list-inside space-y-1 text-slate-600">
-              <li>Show how BA tools can clarify project scope and progress</li>
-              <li>Make complex information easier to navigate</li>
-              <li>Highlight data and visuals that support better decisions</li>
-            </ul>
-          </div>
-        </section>
-      </div>
+</div>
 
-      <!-- Team -->
-      <div id="team" class="tab-content hidden">
-        <section>
-          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Team</h2>
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-            <p class="text-slate-600 mb-4">This demonstration is a solo project designed to showcase Business Analyst skills in project documentation, visualization, and stakeholder communication.</p>
-            <ul class="space-y-2">
-              <li><span class="font-semibold">Darren Snook</span> — Business Analyst & Project Designer</li>
-            </ul>
-          </div>
-        </section>
-      </div>
-
-      <!-- Timeline -->
-      <div id="timeline" class="tab-content hidden">
-        <section>
-          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Timeline</h2>
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-            <div class="space-y-4">
-              <div>
-                <h3 class="font-semibold">Phase 1: Research & Planning</h3>
-                <p class="text-slate-600">Gathered requirements and defined objectives for the dashboard structure.</p>
-              </div>
-              <div>
-                <h3 class="font-semibold">Phase 2: Design & Build</h3>
-                <p class="text-slate-600">Created the information architecture and developed interactive elements.</p>
-              </div>
-              <div>
-                <h3 class="font-semibold">Phase 3: Review & Refine</h3>
-                <p class="text-slate-600">Tested usability, refined content, and aligned layout with project goals.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- About Me -->
-      <div id="about" class="tab-content hidden">
-        <section>
-          <h2 class="text-2xl font-semibold text-slate-900 mb-4">About Me</h2>
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-            <p class="text-lg text-slate-600 mb-4">
-              I’m a Business Analyst focused on making operations clearer and projects easier to manage. I help teams streamline processes, document requirements, and turn information into tools that support growth and smart decisions.
-            </p>
-
-            <h3 class="text-xl font-semibold text-slate-800 mb-2">My Role on This Project</h3>
-            <p class="text-slate-600 mb-4">
-              I designed this hub to show how BA techniques can bring clarity to complex projects. I structured information, mapped requirements, and built interactive visuals to demonstrate how data and documentation can work together to keep stakeholders aligned.
-            </p>
-
-            <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Skills Demonstrated</h3>
-            <ul class="list-disc list-inside text-slate-600 mb-4 space-y-1">
-              <li>Process mapping to identify bottlenecks and improve workflows</li>
-              <li>Clear requirements gathering and documentation</li>
-              <li>Turning data into reports that support decisions</li>
-              <li>Organizing information into usable structures</li>
-              <li>Facilitating communication between stakeholders</li>
-              <li>Coordinating tasks and timelines to support delivery</li>
-              <li>Creating visual tools that track progress</li>
-            </ul>
-
-            <div class="flex space-x-4">
-              <a href="https://www.linkedin.com/in/dg-snook/" target="_blank" class="text-indigo-600 hover:underline">LinkedIn</a>
-              <a href="https://github.com/DGSConsulting" target="_blank" class="text-indigo-600 hover:underline">GitHub</a>
-              <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">Website</a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
     // Tab switching
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabButtons.forEach(b => b.classList.replace('bg-indigo-600', 'bg-white'));
-        tabButtons.forEach(b => b.classList.remove('text-white'));
-        tabButtons.forEach(b => b.classList.add('text-slate-800','border'));
-        btn.classList.replace('bg-white', 'bg-indigo-600');
-        btn.classList.add('text-white');
-        tabContents.forEach(c => c.classList.add('hidden'));
-        document.getElementById(btn.dataset.tab).classList.remove('hidden');
-      });
-    });
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
 
-    // Charts
-    const ctx1 = document.getElementById('statusChart').getContext('2d');
-    new Chart(ctx1, {
-      type: 'doughnut',
-      data: {
-        labels: ['Completed', 'In Progress', 'Not Started'],
-        datasets: [{
-          data: [65, 25, 10],
-          backgroundColor: ['#4f46e5', '#6366f1', '#c7d2fe']
-        }]
-      },
-      options: {
-        plugins: { legend: { position: 'bottom' } }
-      }
-    });
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('tab-active'));
+            tab.classList.add('tab-active');
 
-    const ctx2 = document.getElementById('successChart').getContext('2d');
-    new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['Clarity', 'Efficiency', 'Stakeholder Alignment', 'Usability'],
-        datasets: [{
-          label: 'Success Metric',
-          data: [85, 75, 90, 80],
-          backgroundColor: '#4f46e5'
-        }]
-      },
-      options: {
-        scales: {
-          x: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } },
-          y: { ticks: { font: { weight: '600' } } }
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: ctx => ctx.raw + '%'
-            }
-          },
-          legend: { display: false }
-        }
-      }
+            const target = tab.getAttribute('data-tab');
+            contents.forEach(c => c.classList.remove('active'));
+            document.getElementById(target).classList.add('active');
+        });
     });
-  </script>
+});
+</script>
+
 </body>
 </html>
-
