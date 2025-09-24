@@ -1,454 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Hub: Online Booking System</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chosen Palette: Slate & Indigo -->
-    <!-- Application Structure Plan: A tabbed single-page application design was chosen to break down the dense project document into digestible, thematic sections: Overview, Scope & Features, Team & Roles, and Timeline. This structure allows different stakeholders to quickly access information relevant to their roles without extensive scrolling. The user flow begins at a high-level dashboard (Overview) with key stats and goals, then allows for deeper dives into specific areas via persistent top navigation. This non-linear approach significantly improves usability over a linear document. -->
-    <!-- Visualization & Content Choices: 
-        - Project Overview -> Goal: Inform -> Viz: Stat cards & a Bar Chart -> Interaction: Hover tooltips on chart -> Justification: Quickly conveys high-level goals and measurable success criteria. Library: Chart.js (Canvas).
-        - Requirements -> Goal: Organize -> Viz: Interactive Accordion -> Interaction: Click to expand/collapse sections -> Justification: Manages information density, allowing users to focus on specific requirement categories without being overwhelmed. Method: HTML/CSS/JS.
-        - RACI Matrix -> Goal: Organize -> Viz: Styled HTML Table -> Interaction: Hover highlight on rows -> Justification: Standard and clear representation for role definition. Method: HTML/Tailwind CSS.
-        - Project Roadmap -> Goal: Show Change/Process -> Viz: Visual Timeline -> Interaction: None, purely visual -> Justification: Translates a text list into an intuitive, easy-to-follow process flow. Method: HTML/Tailwind CSS.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        @import url('https://rsms.me/inter/inter.css');
-        .tab-active {
-            border-bottom: 2px solid #4f46e5;
-            color: #4f46e5;
-            font-weight: 600;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .accordion-open .accordion-content {
-            max-height: 1000px; 
-        }
-        .accordion-open .accordion-arrow {
-            transform: rotate(90deg);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #4f46e5;
-            border: 3px solid #eef2ff;
-        }
-        .timeline-line {
-            position: absolute;
-            left: -21px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #e0e7ff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Analyst Project Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800">
+  <div class="container mx-auto p-6">
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-slate-900">Business Analyst Project Hub</h1>
+      <p class="text-slate-600">Created by Darren Snook — <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">DGS Consulting</a></p>
+      <p class="mt-2 text-slate-700">This demonstration hub shows how Business Analysis practices can turn complex project details into clear, interactive tools.</p>
+    </header>
 
-    <div class="container mx-auto p-4 md:p-8">
-        
-        <header class="mb-8">
-            <h1 class="text-4xl font-bold text-slate-900">Project Hub: Online Booking System</h1>
-            <p class="text-lg text-slate-600 mt-2">A consolidated dashboard for all project stakeholders, requirements, and timelines.</p>
-            <p class="text-sm text-slate-400 mt-2">Created by Darren Snook</p>
-        </header>
+    <!-- Navigation Tabs -->
+    <nav role="tablist" class="flex space-x-4 mb-6">
+      <button class="tab-button px-4 py-2 bg-indigo-600 text-white rounded-lg" data-tab="dashboard">Dashboard</button>
+      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="scope">Scope</button>
+      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="team">Team</button>
+      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="timeline">Timeline</button>
+      <button class="tab-button px-4 py-2 bg-white border rounded-lg" data-tab="about">About Me</button>
+    </nav>
 
-        <nav class="border-b border-slate-200 mb-8">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-slate-500">
-                <li class="mr-2">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300 tab-active" data-tab="overview">
-                        <span class="text-xl mr-2">📊</span>Dashboard
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="scope">
-                         <span class="text-xl mr-2">📋</span>Scope & Requirements
-                    </button>
-                </li>
-                <li class="mr-2">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="team">
-                        <span class="text-xl mr-2">👥</span>Team & Roles
-                    </button>
-                </li>
-                <li>
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="timeline">
-                        <span class="text-xl mr-2">⏳</span>Project Timeline
-                    </button>
-                </li>
-                <li>
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="about">
-                        <span class="text-xl mr-2">👤</span>About Me
-                    </button>
-                </li>
+    <!-- Content Areas -->
+    <main>
+      <!-- Dashboard -->
+      <div id="dashboard" class="tab-content">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Dashboard</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+              <h3 class="text-xl font-semibold mb-4">Project Status</h3>
+              <canvas id="statusChart"></canvas>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+              <h3 class="text-xl font-semibold mb-4">Success Metrics</h3>
+              <canvas id="successChart"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Scope -->
+      <div id="scope" class="tab-content hidden">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Scope</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+            <p class="mb-4 text-slate-600">
+              This project was designed to demonstrate how information can be organized into a straightforward, interactive hub. It brings together scope, team, and timeline details in one place.
+            </p>
+            <h3 class="text-xl font-semibold mb-2">Objectives</h3>
+            <ul class="list-disc list-inside space-y-1 text-slate-600">
+              <li>Show how BA tools can clarify project scope and progress</li>
+              <li>Make complex information easier to navigate</li>
+              <li>Highlight data and visuals that support better decisions</li>
             </ul>
-        </nav>
+          </div>
+        </section>
+      </div>
 
-        <main>
-            <div id="overview" class="tab-content">
-                <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Overview</h2>
-                    <p class="text-slate-600 mb-6">This section provides a high-level summary of the project's purpose and objectives. The primary goal is to create a seamless online booking experience for customers while streamlining administrative tasks and integrating with marketing initiatives.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                            <h3 class="font-semibold text-slate-900">Enhance Customer Experience</h3>
-                            <p class="text-sm text-slate-500 mt-1">Provide a user-friendly, always-on platform for booking appointments.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                            <h3 class="font-semibold text-slate-900">Improve Efficiency</h3>
-                            <p class="text-sm text-slate-500 mt-1">Automate scheduling and reminders to reduce staff workload.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                            <h3 class="font-semibold text-slate-900">Increase Revenue</h3>
-                            <p class="text-sm text-slate-500 mt-1">Reduce no-shows through effective communication and payment integration.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                            <h3 class="font-semibold text-slate-900">Gain Insights</h3>
-                            <p class="text-sm text-slate-500 mt-1">Track booking trends and customer data via an admin dashboard.</p>
-                        </div>
-                    </div>
-                </section>
+      <!-- Team -->
+      <div id="team" class="tab-content hidden">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Team</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+            <p class="text-slate-600 mb-4">This demonstration is a solo project designed to showcase Business Analyst skills in project documentation, visualization, and stakeholder communication.</p>
+            <ul class="space-y-2">
+              <li><span class="font-semibold">Darren Snook</span> — Business Analyst & Project Designer</li>
+            </ul>
+          </div>
+        </section>
+      </div>
 
-                <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">Success Criteria (3 Months Post-Launch)</h2>
-                     <p class="text-slate-600 mb-6">The project's success will be measured against these key performance indicators. The chart below visualizes the target improvements we aim to achieve. Hover over the bars to see the specific target values.</p>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <div class="chart-container" style="position: relative; height:40vh; max-height: 350px; width:100%; max-width: 800px; margin: auto;">
-                            <canvas id="successChart"></canvas>
-                        </div>
-                    </div>
-                </section>
+      <!-- Timeline -->
+      <div id="timeline" class="tab-content hidden">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Timeline</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-semibold">Phase 1: Research & Planning</h3>
+                <p class="text-slate-600">Gathered requirements and defined objectives for the dashboard structure.</p>
+              </div>
+              <div>
+                <h3 class="font-semibold">Phase 2: Design & Build</h3>
+                <p class="text-slate-600">Created the information architecture and developed interactive elements.</p>
+              </div>
+              <div>
+                <h3 class="font-semibold">Phase 3: Review & Refine</h3>
+                <p class="text-slate-600">Tested usability, refined content, and aligned layout with project goals.</p>
+              </div>
             </div>
+          </div>
+        </section>
+      </div>
 
-            <div id="scope" class="tab-content hidden">
-                 <section class="mb-8">
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Scope</h2>
-                    <p class="text-slate-600 mb-6">This section defines the boundaries of the project, detailing what features are included and what is explicitly excluded. This ensures alignment and focus on the core deliverables.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
-                            <h3 class="text-lg font-semibold text-green-800">In Scope</h3>
-                            <ul class="list-disc list-inside mt-2 text-green-700 space-y-1">
-                                <li>Customer-facing web portal</li>
-                                <li>Admin dashboard</li>
-                                <li>Real-time availability calendar</li>
-                                <li>Automated email & SMS reminders</li>
-                                <li>Secure online payment processing</li>
-                                <li>User registration and login</li>
-                            </ul>
-                        </div>
-                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-                            <h3 class="text-lg font-semibold text-red-800">Out of Scope</h3>
-                            <ul class="list-disc list-inside mt-2 text-red-700 space-y-1">
-                                <li>Native mobile application (iOS/Android)</li>
-                                <li>Integration with third-party CRM/ERP</li>
-                                <li>Complex loyalty or rewards programs</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-                
-                <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">System Requirements</h2>
-                    <p class="text-slate-600 mb-6">Explore the detailed functional and non-functional requirements below. Click on each category to expand and view the specific requirements for that component.</p>
-                    <div class="space-y-4" id="accordion-container">
-                    </div>
-                </section>
+      <!-- About Me -->
+      <div id="about" class="tab-content hidden">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-4">About Me</h2>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+            <p class="text-lg text-slate-600 mb-4">
+              I’m a Business Analyst focused on making operations clearer and projects easier to manage. I help teams streamline processes, document requirements, and turn information into tools that support growth and smart decisions.
+            </p>
+
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">My Role on This Project</h3>
+            <p class="text-slate-600 mb-4">
+              I designed this hub to show how BA techniques can bring clarity to complex projects. I structured information, mapped requirements, and built interactive visuals to demonstrate how data and documentation can work together to keep stakeholders aligned.
+            </p>
+
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Skills Demonstrated</h3>
+            <ul class="list-disc list-inside text-slate-600 mb-4 space-y-1">
+              <li>Process mapping to identify bottlenecks and improve workflows</li>
+              <li>Clear requirements gathering and documentation</li>
+              <li>Turning data into reports that support decisions</li>
+              <li>Organizing information into usable structures</li>
+              <li>Facilitating communication between stakeholders</li>
+              <li>Coordinating tasks and timelines to support delivery</li>
+              <li>Creating visual tools that track progress</li>
+            </ul>
+
+            <div class="flex space-x-4">
+              <a href="https://www.linkedin.com/in/dg-snook/" target="_blank" class="text-indigo-600 hover:underline">LinkedIn</a>
+              <a href="https://github.com/DGSConsulting" target="_blank" class="text-indigo-600 hover:underline">GitHub</a>
+              <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">Website</a>
             </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
 
-            <div id="team" class="tab-content hidden">
-                 <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">RACI Matrix: Marketing Campaign Rollout</h2>
-                    <p class="text-slate-600 mb-6">This matrix clarifies roles and responsibilities for the project's marketing rollout, ensuring clear ownership and communication lines. Hover over a row to highlight it.</p>
-                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-slate-50 text-xs text-slate-700 uppercase">
-                                <tr>
-                                    <th class="px-6 py-3 text-center">Stage</th>
-                                    <th class="px-6 py-3 text-center">Marketing</th>
-                                    <th class="px-6 py-3 text-center">Sales</th>
-                                    <th class="px-6 py-3 text-center">IT</th>
-                                    <th class="px-6 py-3 text-center">Executive Sponsor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b hover:bg-slate-50">
-                                    <td class="px-6 py-4 font-semibold">Campaign Strategy & Planning</td>
-                                    <td class="px-6 py-4 text-center">R, A</td>
-                                    <td class="px-6 py-4 text-center">C</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                    <td class="px-6 py-4 text-center">A</td>
-                                </tr>
-                                 <tr class="border-b hover:bg-slate-50">
-                                    <td class="px-6 py-4 font-semibold">Content Creation</td>
-                                    <td class="px-6 py-4 text-center">R, A</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                    <td class="px-6 py-4 text-center">C</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                </tr>
-                                <tr class="border-b hover:bg-slate-50">
-                                    <td class="px-6 py-4 font-semibold">Campaign Execution</td>
-                                    <td class="px-6 py-4 text-center">R, A</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                    <td class="px-6 py-4 text-center">R</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="px-6 py-4 font-semibold">Performance Reporting</td>
-                                    <td class="px-6 py-4 text-center">R, A</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                    <td class="px-6 py-4 text-center">C</td>
-                                    <td class="px-6 py-4 text-center">I</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="mt-4 text-sm text-slate-500">
-                            <p><span class="font-bold">R</span> - Responsible, <span class="font-bold">A</span> - Accountable, <span class="font-bold">C</span> - Consulted, <span class="font-bold">I</span> - Informed</p>
-                        </div>
-                     </div>
-                </section>
-            </div>
-
-            <div id="timeline" class="tab-content hidden">
-                 <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">Project Roadmap</h2>
-                    <p class="text-slate-600 mb-6">This 12-week timeline outlines the key phases from kick-off to post-launch analysis. This visual roadmap provides a clear overview of the project's progression and major milestones.</p>
-                     <div class="relative pl-8">
-                         <div class="timeline-line"></div>
-                         <div class="space-y-12">
-                            <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Weeks 1-2: Kick-off & Discovery</h3>
-                                <p class="text-sm text-slate-500">Formal kick-off meeting to align on goals and confirm project plan. IT begins discovery to finalize technical architecture.</p>
-                            </div>
-                             <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Weeks 3-4: Detailed Design</h3>
-                                <p class="text-sm text-slate-500">UI/UX team creates wireframes and mockups. IT finalizes database schema and API specifications.</p>
-                            </div>
-                             <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Weeks 5-10: Development & Integration</h3>
-                                <p class="text-sm text-slate-500">IT begins development in agile sprints, focusing on booking engine, payments, and notifications. Regular demos for stakeholder feedback.</p>
-                            </div>
-                             <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Week 11: Testing & Quality Assurance</h3>
-                                <p class="text-sm text-slate-500">Rigorous functional, usability, and security testing to identify and resolve any bugs before launch.</p>
-                            </div>
-                             <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Week 12: Deployment & Launch</h3>
-                                <p class="text-sm text-slate-500">System is deployed to production and made live for all customers.</p>
-                            </div>
-                             <div class="relative timeline-item">
-                                <h3 class="font-semibold text-indigo-700">Ongoing: Post-Launch Analysis</h3>
-                                <p class="text-sm text-slate-500">Monitor key metrics and gather user feedback for future improvements. Project retrospective to document lessons learned.</p>
-                            </div>
-                         </div>
-                     </div>
-                </section>
-            </div>
-
-            <div id="about" class="tab-content hidden">
-                <section>
-                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">About Me</h2>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <p class="text-lg text-slate-600 mb-4">
-                            I’m a Business Analyst with a focus on turning complex processes and requirements into clear, actionable solutions. My experience spans workflow optimization, data-driven decision support, and building structured documentation that helps teams align and execute effectively. I thrive on bridging the gap between stakeholders and technical teams, ensuring that business goals translate into practical, scalable outcomes.
-                        </p>
-                        
-                        <h3 class="text-xl font-semibold text-slate-800 mb-2">My Role on This Project</h3>
-                        <p class="text-slate-600 mb-4">
-                            For this project hub, I consolidated detailed project documentation into a single interactive dashboard. I mapped requirements, structured the information architecture, and designed visualizations to make data and milestones intuitive for all stakeholders. The goal was to showcase how BA practices—clear requirements, organized visuals, and accessible reporting—can turn dense project material into a tool that drives alignment and decision-making.
-                        </p>
-                        
-                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Skills Demonstrated</h3>
-<ul class="list-disc list-inside text-slate-600 mb-4 space-y-1">
-    <li>Process mapping to spot bottlenecks and design smoother workflows</li>
-    <li>Clear requirements gathering and documentation that teams can act on</li>
-    <li>Turning raw data into reports that support smarter decisions</li>
-    <li>Organizing complex information into simple, usable structures</li>
-    <li>Facilitating communication between stakeholders to keep projects moving</li>
-    <li>Coordinating tasks and timelines to support successful delivery</li>
-    <li>Creating visual tools and dashboards that make progress easy to track</li>
-</ul>
-
-                        
-                        <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/in/dg-snook/" target="_blank" class="text-indigo-600 hover:underline">
-                                LinkedIn
-                            </a>
-                            <a href="https://github.com/DGSConsulting" target="_blank" class="text-indigo-600 hover:underline">
-                                GitHub
-                            </a>
-                            <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">
-                                Website
-                            </a>
-                        </div>
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Other Portfolio Highlights</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <a href="https://dgsnook.github.io/BAPortfolio-Interactive-Order-to-Cash-Cycle-Analysis/" class="p-4 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors duration-200">
-                                <h4 class="font-semibold text-lg text-slate-900">Interactive Order-to-Cash Cycle Analysis</h4>
-                                <p class="text-sm text-slate-600 mt-1">A project focused on using data to improve the Order-to-Cash cycle.</p>
-                            </a>
-                            <a href="https://dgsnook.github.io/BAPortfolio-Interactive-Employee-Onboarding-Analysis/" class="p-4 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors duration-200">
-                                <h4 class="font-semibold text-lg text-slate-900">Interactive Employee Onboarding Analysis</h4>
-                                <p class="text-sm text-slate-600 mt-1">A project focused on using data to improve the employee onboarding process.</p>
-                            </a>
-                    </div>
-                </section>
-            </div>
-
-        </main>
-    </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabs = document.querySelectorAll('[data-tab]');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetId = tab.getAttribute('data-tab');
-
-                tabs.forEach(t => t.classList.remove('tab-active'));
-                tab.classList.add('tab-active');
-
-                tabContents.forEach(content => {
-                    if (content.id === targetId) {
-                        content.classList.remove('hidden');
-                    } else {
-                        content.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        const requirementsData = {
-            "Functional: Customer Portal": [
-                "FR-1.1: Display an availability calendar showing open time slots.",
-                "FR-1.2: Allow customers to select a service, a date, and a time slot.",
-                "FR-1.3: Allow new users to create an account and existing users to log in.",
-                "FR-1.4: Provide a confirmation page after a successful booking.",
-                "FR-1.5: Enable customers to view, modify, or cancel their appointments."
-            ],
-            "Functional: Automated Reminders": [
-                "FR-2.1: Send an immediate confirmation email upon successful booking.",
-                "FR-2.2: Send an automated email reminder 24 hours prior to the appointment.",
-                "FR-2.3: Send an automated SMS reminder 1 hour prior to the appointment.",
-                "FR-2.4: Send an instant push notification upon successful booking."
-            ],
-            "Functional: Payment Integration": [
-                "FR-3.1: Support secure online payment processing via credit card.",
-                "FR-3.2: Allow business to set different payment options (upfront, deposit, etc.).",
-                "FR-3.3: Generate and send an invoice/receipt to the customer via email."
-            ],
-            "Functional: Administrative Dashboard": [
-                "FR-4.1: Provide a secure login for administrators.",
-                "FR-4.2: Display a dashboard to view all scheduled appointments.",
-                "FR-4.3: Allow admins to manually create, edit, or cancel appointments.",
-                "FR-4.4: Allow admins to manage services, pricing, and staff availability."
-            ],
-            "Non-Functional: Performance, Security, Usability, Scalability": [
-                "NFR-1.1: Website must load within 3 seconds.",
-                "NFR-1.2: Booking process must be completed within 60 seconds.",
-                "NFR-2.1: Use HTTPS encryption for all data transmission.",
-                "NFR-2.2: All customer data must be stored in a secure, encrypted database.",
-                "NFR-2.3: Comply with GDPR and other relevant data privacy regulations.",
-                "NFR-3.1: The user interface must be intuitive and easy to navigate.",
-                "NFR-3.2: Design must be responsive for all devices.",
-                "NFR-4.1: Handle a minimum of 1,000 bookings per day without degradation."
-            ]
-        };
-        
-        const accordionContainer = document.getElementById('accordion-container');
-        Object.keys(requirementsData).forEach(key => {
-            const items = requirementsData[key];
-            const accordionItem = document.createElement('div');
-            accordionItem.className = 'border border-slate-200 rounded-lg bg-white';
-            accordionItem.innerHTML = `
-                <button class="accordion-toggle w-full p-4 text-left font-semibold text-slate-800 flex justify-between items-center hover:bg-slate-50">
-                    <span>${key}</span>
-                    <span class="accordion-arrow transition-transform duration-300">▶</span>
-                </button>
-                <div class="accordion-content">
-                    <ul class="p-4 pt-0 text-slate-600 list-disc list-inside space-y-2">
-                        ${items.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
-            accordionContainer.appendChild(accordionItem);
-        });
-
-        document.querySelectorAll('.accordion-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                button.parentElement.classList.toggle('accordion-open');
-            });
-        });
-        
-        const ctx = document.getElementById('successChart').getContext('2d');
-        const successChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Reduction in Booking Calls', 'Reduction in No-Shows', 'Positive Customer Feedback'],
-                datasets: [{
-                    label: 'Success Metric Target (%)',
-                    data: [20, 15, 80],
-                    backgroundColor: [
-                        'rgba(79, 70, 229, 0.7)',
-                        'rgba(59, 130, 246, 0.7)',
-                        'rgba(16, 185, 129, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(79, 70, 229, 1)',
-                        'rgba(59, 130, 246, 1)',
-                        'rgba(16, 185, 129, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%'
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                         callbacks: {
-                            label: function(context) {
-                                return ` Target: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.replace('bg-indigo-600', 'bg-white'));
+        tabButtons.forEach(b => b.classList.remove('text-white'));
+        tabButtons.forEach(b => b.classList.add('text-slate-800','border'));
+        btn.classList.replace('bg-white', 'bg-indigo-600');
+        btn.classList.add('text-white');
+        tabContents.forEach(c => c.classList.add('hidden'));
+        document.getElementById(btn.dataset.tab).classList.remove('hidden');
+      });
     });
-</script>
 
+    // Charts
+    const ctx1 = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'In Progress', 'Not Started'],
+        datasets: [{
+          data: [65, 25, 10],
+          backgroundColor: ['#4f46e5', '#6366f1', '#c7d2fe']
+        }]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+
+    const ctx2 = document.getElementById('successChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Clarity', 'Efficiency', 'Stakeholder Alignment', 'Usability'],
+        datasets: [{
+          label: 'Success Metric',
+          data: [85, 75, 90, 80],
+          backgroundColor: '#4f46e5'
+        }]
+      },
+      options: {
+        scales: {
+          x: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } },
+          y: { ticks: { font: { weight: '600' } } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.raw + '%'
+            }
+          },
+          legend: { display: false }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
+
