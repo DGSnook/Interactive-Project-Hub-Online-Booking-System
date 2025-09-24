@@ -65,6 +65,7 @@
         <header class="mb-8">
             <h1 class="text-4xl font-bold text-slate-900">Project Hub: Online Booking System</h1>
             <p class="text-lg text-slate-600 mt-2">A consolidated dashboard for all project stakeholders, requirements, and timelines.</p>
+            <p class="text-sm text-slate-400 mt-2">Created by Darren Snook</p>
         </header>
 
         <nav class="border-b border-slate-200 mb-8">
@@ -87,6 +88,11 @@
                 <li>
                     <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="timeline">
                         <span class="text-xl mr-2">⏳</span>Project Timeline
+                    </button>
+                </li>
+                <li>
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="about">
+                        <span class="text-xl mr-2">👤</span>About Me
                     </button>
                 </li>
             </ul>
@@ -172,7 +178,7 @@
                         <table class="w-full text-left">
                             <thead class="bg-slate-50 text-xs text-slate-700 uppercase">
                                 <tr>
-                                    <th class="px-6 py-3">Stage</th>
+                                    <th class="px-6 py-3 text-center">Stage</th>
                                     <th class="px-6 py-3 text-center">Marketing</th>
                                     <th class="px-6 py-3 text-center">Sales</th>
                                     <th class="px-6 py-3 text-center">IT</th>
@@ -250,6 +256,45 @@
                             </div>
                          </div>
                      </div>
+                </section>
+            </div>
+
+            <div id="about" class="tab-content hidden">
+                <section>
+                    <h2 class="text-2xl font-semibold text-slate-900 mb-4">About Me</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <p class="text-lg text-slate-600 mb-4">
+                            I’m a Business Analyst with a focus on turning complex processes and requirements into clear, actionable solutions. My experience spans workflow optimization, data-driven decision support, and building structured documentation that helps teams align and execute effectively. I thrive on bridging the gap between stakeholders and technical teams, ensuring that business goals translate into practical, scalable outcomes.
+                        </p>
+                        
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">My Role on This Project</h3>
+                        <p class="text-slate-600 mb-4">
+                            For this project hub, I consolidated detailed project documentation into a single interactive dashboard. I mapped requirements, structured the information architecture, and designed visualizations to make data and milestones intuitive for all stakeholders. The goal was to showcase how BA practices—clear requirements, organized visuals, and accessible reporting—can turn dense project material into a tool that drives alignment and decision-making.
+                        </p>
+                        
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Skills Demonstrated</h3>
+                        <ul class="list-disc list-inside text-slate-600 mb-4 space-y-1">
+                            <li>Business Process Analysis & Optimization</li>
+                            <li>Requirements Gathering & Documentation</li>
+                            <li>Data Analysis & Reporting</li>
+                            <li>Information Architecture</li>
+                            <li>Stakeholder Communication & Project Coordination</li>
+                            <li>Front-End Prototyping (HTML, CSS, JavaScript)</li>
+                            <li>User Experience (UX) Design Principles</li>
+                        </ul>
+                        
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/dg-snook/" target="_blank" class="text-indigo-600 hover:underline">
+                                LinkedIn
+                            </a>
+                            <a href="https://github.com/DGSConsulting" target="_blank" class="text-indigo-600 hover:underline">
+                                GitHub
+                            </a>
+                            <a href="http://dgsconsulting.solutions/" target="_blank" class="text-indigo-600 hover:underline">
+                                Website
+                            </a>
+                        </div>
+                    </div>
                 </section>
             </div>
 
@@ -393,6 +438,6 @@
 
     });
 </script>
-<p class="text-sm text-slate-400 mt-2">Created by Darren Snook</p>
+
 </body>
 </html>
